@@ -73,7 +73,7 @@ func CreateHisiE(strContent string) {
 
 // todo 主网list
 var etherMainnetList1 = []string{
-	"https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-	"https://mainnet.infura.io/v3/20e078e98de64af88b26c6b1bb47f822",
-	"https://mainnet.infura.io/v3/",
+	"https://mainnet.infura.io/v3/I9A7VY96R41H5HQYETGCBJXZDPQ6QUVDA9",
+	"https://mainnet.infura.io/v3/I9A7VY96R41H5HQYETGCBJXZDPQ6QUVDA9",
+	"https://mainnet.infura.io/v3/I9A7VY96R41H5HQYETGCBJXZDPQ6QUVDA9",
 }
