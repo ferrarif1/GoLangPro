@@ -9,6 +9,7 @@ import(
 	"errors"
 	"math/rand"
     "strconv"
+	"workspace/work"
 )
 
 var(
@@ -298,7 +299,7 @@ func main()  {
 		fmt.Printf("%c\n",ele)
 	}
 	fmt.Printf("arr len %d, s len %d \n", len(arr), len(s))
-	for _,ele := range brr{
+	for _,ele := range brr{//for range遍历都会拷贝一份
 		fmt.Printf("%d\n",ele)
 		fmt.Printf("%c\n",ele)
 	}
@@ -314,8 +315,8 @@ func main()  {
 	channel_func()
 	Utils.FuncB()  
 
-	Main2() // build workspace后才可用 用：1）go build 2）go run workspace
-
+	work.Main2() // build workspace后才可用 用：1）go build 2）go run workspace
+    work.Main3()
 }
 
 
