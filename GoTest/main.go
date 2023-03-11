@@ -228,6 +228,67 @@ func BinaryFormat(n int32) string{
     return sb.String()
 }
 
+
+/*函数作为数据类型*/
+// func func_arg(f func(a, b int)int, b int)int{
+// 	a:= 2*b
+// 	return f(a,b)
+// }
+//下面写法更简洁：
+type foo func(a,b int)int
+
+func func_arg(f foo, b int)int  {
+	a := 2*b
+	return f(a,b)
+}
+
+//匿名函数
+var sum = func(a,b int)int{
+	return a+b
+}
+
+type addint func(a,b int)int
+
+func op(f addint, a int) int{
+    b:= 2*a
+	return f(a, b)
+}
+/*
+输出顺序：
+
+*/
+func basic()(i int){
+	i = 9
+	fmt.Println("A")//先执行
+	defer func(i int){
+		fmt.Println(i)
+	}(i) //第7执行，输出9，因为i在defer注册时已经传入了
+	defer func(){
+		fmt.Println(i)
+	}() //第6执行，输出5 ,这里的i执行时才会取值所以得到5 注意：这里需要调用func,故在最后加（）
+	defer fmt.Println(i) //第5执行 ，输出9，这个i在一开始就赋值了，所以还是9
+	defer fmt.Println("B")//第4执行，defer是逆序的，后注册的先执行
+	fmt.Println("C")//先执行
+	defer fmt.Println("D")//第3个执行
+	fmt.Println("E")//先执行
+	return 5 //第2执行
+}
+/*
+aaaaaaaa3
+aaaaaaaa
+panic: runtime error: integer divide by zero
+*/
+//panic类似于抛出异常中止程序
+func defer_panic(){
+	defer fmt.Println("aaaaaaaa")
+	n:=0
+	defer func(){
+		fmt.Println(2/n) //此处将有panic,但不会影响下一个defer执行
+		defer fmt.Println("aaaaaaaa2")
+	}()
+	defer fmt.Println("aaaaaaaa3")
+}
+
 func main()  {
 	fmt.Println("Test fmt")
 
@@ -317,6 +378,45 @@ func main()  {
 
 	work.Main2() // build workspace后才可用 用：1）go build 2）go run workspace
     work.Main3()
+
+	q1:= append(crr, "abc"...)// string->[]byte
+	fmt.Println(q1)
+
+	fmt.Println(sum(1,4))
+
+	slc := make([]addint, 0, 5)
+	slc = append(slc, sum, sum, sum)//slc里面放三个这种函数
+	fmt.Println(slc)
+    //闭包是引用了自由变量的函数
+	work.Bibao()() //.Bibao()这层取到func b,再加个()以调用func b
+	work.Bibao()() //每次运行func b都是新的 不会改变i
+	work.Bibao()()
+
+	bf := work.Bibao()
+	bf()// bf是相同的，会改变i
+	bf()
+    //defer延迟执行
+	basic()
+
+	// panic(0) //主线程panic 会导致中止，后面不再执行
+	// defer_panic()
+   
+	//error
+    if res, err := work.Divide(0, 3); err != nil{
+		fmt.Printf(err.Error())
+	}else{
+		fmt.Printf("res = %d\n", res)
+	}
+
+	//recover
+	work.Soo(2,3)
+
+	//interface
+	work.InterfaceTest()
+	work.InterfaceTest2()
+
+	//assert
+    work.AssertTest()
 }
 
 
