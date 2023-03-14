@@ -3,6 +3,8 @@ package models
 import (
 	"time"
 
+	"ginchat/utils"
+
 	"gorm.io/gorm"
 )
 
@@ -28,4 +30,18 @@ type UserBasic struct {
 	LoginOutTime  time.Time `gorm:"colum:login_out_time" json:"login_out_time"` //用这个命令创建别名
 	IsLoginout    bool
 	DeviceInfo    string
+}
+
+func (table *UserBasic) TableName() string {
+	return "user_basics"
+}
+
+func GetUserList() []*UserBasic {
+	data := make([]*UserBasic, 10)
+	DB := utils.InitMySQL()
+	DB.Find(&data)
+	// for _, v := range data {
+	//    fmt.Println(v)
+	// }
+	return data
 }
