@@ -1,3 +1,3 @@
-module GoTest2
+module GoProject
 
 go 1.20
