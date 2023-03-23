@@ -28,4 +28,10 @@ func main() {
 
 	//func
 	TestFunc()
+
+	//point array
+	TestPointArr()
+
+	//struct
+	TestStruct()
 }
