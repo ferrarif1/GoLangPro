@@ -42,7 +42,7 @@ func main() {
 	// TestNewFunc()
 
 	/*
-	   并发编程：
+	   并发编程：start***********
 	*/
 	// TestRoutine()
 
@@ -52,9 +52,18 @@ func main() {
 
 	// TestRunTime()
 
-	TestMutex()
+	// TestMutex()
 
-	TestChannelIterate()
+	// TestChannelIterate()
 
-	TestSelectSwitch()
+	//TestSelectSwitch()
+
+	// TestTimer()
+
+	//TestTicker()
+
+	TestAtomic()
+	/*
+	   并发编程：end***********
+	*/
 }

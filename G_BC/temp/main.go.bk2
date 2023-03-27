@@ -1,0 +1,52 @@
+package main
+
+import (
+	"context"
+	"encoding/hex"
+	"fmt"
+	"log"
+	"math/big"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/ethclient"
+)
+
+func main() {
+	// client, err := ethclient.Dial("https://rpc.testnet.mantle.xyz")
+	client, err := ethclient.Dial("http://127.0.0.1:9545")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	bn := 16440
+
+	// size := common.StorageSize(0)
+	// for i := bn; i < 1892541; i++ {
+
+	// 	blockNumber := big.NewInt(int64(i))
+	// 	block, err := client.BlockByNumber(context.Background(), blockNumber)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	size += block.Size()
+	// 	fmt.Printf("block: %v,\tsize: %f\n", block.Number(), block.Size())
+	// }
+
+	// fmt.Printf("size: %v", size)
+
+	fmt.Println("block balance1 balance2")
+	for j := bn; j < 16440; j++ {
+		blockNumber := big.NewInt(int64(j))
+		balance1, err := client.BalanceAt(context.Background(), common.HexToAddress("0xd54E978cCfFBe3cC3Cb55434B5853dD2748F1e71"), blockNumber)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		balance2, err := client.BalanceAt(context.Background(), common.HexToAddress("0xd5BA7c6C0A8BE12c68b7c6bd063018b5C47e6Ac7"), blockNumber)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println(blockNumber, balance1, balance2)
+	}
+}
