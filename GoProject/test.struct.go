@@ -7,6 +7,7 @@ import (
 type Person struct {
 	id   int
 	name string
+	age  int
 }
 
 // 给结构体定义方法
@@ -40,6 +41,7 @@ func TestStruct() {
 
 	kite := Person{id: 1, name: "kite"}
 	fmt.Printf("kite: %v\n", kite)
+	fmt.Printf("kite type: %T\n", kite) //main.Person
 
 	//匿名结构体
 	var jerry struct {
@@ -52,9 +54,16 @@ func TestStruct() {
 	sec := tom.createSon(7, "sec")
 	fmt.Printf("tom1: %v\n", tom)
 	fmt.Printf("sec: %v\n", sec)
-	
+
 	newtom := tom.update(4, "newtom")
 	fmt.Printf("tom2: %v\n", tom)
 	fmt.Printf("newtom: %v\n", newtom)
+
+	//初始化
+	var shit = new(Person)
+	fmt.Printf("shit: %p\n", shit)
+	fmt.Printf("shit type: %T\n", shit) //shit是指针  *main.Person
+	shit.id = 111
+	shit.name = "op"
 
 }

@@ -20,18 +20,41 @@ func main() {
 	// fmt.Printf("name: %v\n", name)
 	// fmt.Printf("age: %v\n", age)
 
-	//slice crud
-	TestSlice()
+	// //slice crud
+	// TestSlice()
 
-	//map
-	TestMap()
+	// //map
+	// TestMap()
 
-	//func
-	TestFunc()
+	// //func
+	// TestFunc()
 
-	//point array
-	TestPointArr()
+	// //point array
+	// TestPointArr()
 
-	//struct
-	TestStruct()
+	// //struct
+	// TestStruct()
+
+	// ProjTest()
+
+	// InterfaceTest()
+
+	// TestNewFunc()
+
+	/*
+	   并发编程：
+	*/
+	// TestRoutine()
+
+	// TestChannel()
+
+	// TestWaitGroup()
+
+	// TestRunTime()
+
+	TestMutex()
+
+	TestChannelIterate()
+
+	TestSelectSwitch()
 }
