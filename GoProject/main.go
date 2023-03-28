@@ -21,7 +21,7 @@ func main() {
 	// fmt.Printf("age: %v\n", age)
 
 	// //slice crud
-	// TestSlice()
+	TestSlice()
 
 	// //map
 	// TestMap()
@@ -62,8 +62,17 @@ func main() {
 
 	//TestTicker()
 
-	TestAtomic()
+	// TestAtomic()
+	//TestAtomic2()
+
 	/*
 	   并发编程：end***********
+	   golang标准库os模块：start***********
+	*/
+
+	TestFile()
+
+	/*
+	   golang标准库os模块：end***********
 	*/
 }

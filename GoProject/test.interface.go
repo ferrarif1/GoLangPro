@@ -11,8 +11,8 @@ type USBHandler interface {
 
 type pointUSBHandler interface {
 	read() string
-	write(string)
-	write2(string)
+	write(string)//这个write接收指针参数，可更改外部变量
+	write2(string)//这个write2接收值参数，不可修改外部变量
 }
 
 type Computer struct {

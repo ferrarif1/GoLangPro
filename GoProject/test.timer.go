@@ -21,7 +21,7 @@ func TestTimer() {
 	//3
 	time.Sleep(time.Second * 2)
 
-	//4
+	//4  func After(d Duration) <-chan Time 返回一个NewTimer(d).C
 	<-time.After(time.Second * 2)
 
 	/*

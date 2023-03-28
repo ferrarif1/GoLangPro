@@ -60,7 +60,7 @@ func TestStruct() {
 	fmt.Printf("newtom: %v\n", newtom)
 
 	//初始化
-	var shit = new(Person)
+	var shit = new(Person)   //func new(Type) *Type  new返回的对象是指针
 	fmt.Printf("shit: %p\n", shit)
 	fmt.Printf("shit type: %T\n", shit) //shit是指针  *main.Person
 	shit.id = 111

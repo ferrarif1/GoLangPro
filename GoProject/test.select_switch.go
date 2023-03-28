@@ -8,7 +8,7 @@ import (
 /*
 select是go中一个控制结构，用于异步处理IO操作
 select会监听channel的读写操作，当case中channel读写操作为非阻塞状态（能读能写）时，将会触发相应的动作
-* select中的case语句必须是一个channel操作
+* !!!!!!!!!!!!!! select中的case语句必须是一个channel操作 !!!!!!!!!!!!!!!!!!!!!!!!
 * select中的default总是可以运行的
 
 如果多个case都可以运行，会随机公平选择一个执行

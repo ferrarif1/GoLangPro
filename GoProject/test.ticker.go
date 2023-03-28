@@ -25,7 +25,7 @@ func TestTicker() {
 	ticker2 := time.NewTicker(time.Second)
 	chanInt := make(chan int)
 	
-	go func ()  {//启动协程往channel里放元素
+	go func ()  {//启动一个协程往channel里放元素
 		for range ticker2.C {
 			select {
 			case chanInt <- 1:
@@ -35,7 +35,7 @@ func TestTicker() {
 		}
 	}()
 	sum := 0
-	for v := range chanInt {//一直循环等着收，查到就输出
+	for v := range chanInt {//在主协程一直循环等着收，查到就输出
 		fmt.Printf("receive v: %v\n", v)
         sum+=v
 		if sum>10 {

@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 type Integer int
+
 func (a Integer)Add(b Integer) Integer {
 	return a+b
 }
