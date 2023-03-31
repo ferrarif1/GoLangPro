@@ -83,9 +83,9 @@ func readFile() {
 		fmt.Printf("readFile err: %v\n", err)
 	} else {
 		/*
-		这里可以直接用b，或者b[:]来获得切片b的所有元素
+			这里可以直接用b，或者b[:]来获得切片b的所有元素
 		*/
-		fmt.Printf("readFile b: %v\n", string(b)) 
+		fmt.Printf("readFile b: %v\n", string(b))
 	}
 }
 
@@ -95,7 +95,7 @@ func writeFile() {
 	os.WriteFile("b.txt", []byte(s), os.ModePerm)
 }
 
-func TestFile() {
+func TestOSFile() {
 	createFile()
 	createDir()
 	time.Sleep(time.Second * 2)
