@@ -56,7 +56,7 @@ func main() {
 
 	// TestChannelIterate()
 
-	//TestSelectSwitch()
+	// TestSelectSwitch()
 
 	// TestTimer()
 
@@ -71,11 +71,17 @@ func main() {
 	*/
 
 	//TestOSFile()
-	//TestFile() 
-   // TestWriteFile()
+	//TestFile()
+	// TestWriteFile()
 
-	TestIO()
+	// TestIO()
 	/*
 	   golang标准库os模块：end***********
 	*/
+
+	/*
+		牛客网题目：
+	*/
+	TestNewCoder1()
+
 }

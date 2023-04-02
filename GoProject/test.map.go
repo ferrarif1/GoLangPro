@@ -38,6 +38,14 @@ func Map4() {
 	fmt.Printf("ok2: %v\n", ok2)
 }
 
+func DeleteEle() {
+	m := map[string]int{}
+	m["sdd"] = 1
+	fmt.Printf("m: %v\n", m)
+	delete(m, "sdd")
+	fmt.Printf("m: %v\n", m)
+}
+
 func MapIterate() {
 	var m1 = map[string]string{"name": "tom", "age": "15", "email": "shit@111.com"}
 	for k, v := range m1 {
@@ -52,4 +60,5 @@ func TestMap() {
 	Map3()
 	Map4()
 	MapIterate()
+	DeleteEle()
 }

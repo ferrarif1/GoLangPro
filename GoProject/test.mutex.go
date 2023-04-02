@@ -33,8 +33,18 @@ func sub()  {
 	time.Sleep(time.Millisecond*2)
 	lock.Unlock()
 }
+type Cust struct{
+	A int
+}
+func sss(value int)  {
+	
+}
 
 func TestMutex() {
+
+    c:= &Cust{A:1}
+	sss(int(c.A))
+
     for i := 0; i < 100; i++ {
 		go add()
 		wt.Add(1)
@@ -44,3 +54,5 @@ func TestMutex() {
 	wt.Wait()
 	fmt.Printf("m: %v\n", m)
 }
+
+
