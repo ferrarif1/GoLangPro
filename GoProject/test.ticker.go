@@ -24,10 +24,10 @@ func TestTicker() {
 	//周期发送给chanint
 	ticker2 := time.NewTicker(time.Second)
 	chanInt := make(chan int)
-	
-	go func ()  {//启动一个协程往channel里放元素
+
+	go func() { //启动一个协程往channel里放元素
 		for range ticker2.C {
-			select {
+			select { //随机向通道发送一个整数
 			case chanInt <- 1:
 			case chanInt <- 2:
 			case chanInt <- 3:
@@ -35,11 +35,11 @@ func TestTicker() {
 		}
 	}()
 	sum := 0
-	for v := range chanInt {//在主协程一直循环等着收，查到就输出
+	for v := range chanInt { //在主协程一直循环等着收，查到就输出
 		fmt.Printf("receive v: %v\n", v)
-        sum+=v
-		if sum>10 {
-			break;
+		sum += v
+		if sum > 10 {
+			break
 		}
 	}
 }

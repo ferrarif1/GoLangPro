@@ -24,7 +24,7 @@ func main() {
 	//TestSlice()
 
 	// //map
-	// TestMap()
+	//TestMap()
 
 	// //func
 	// TestFunc()
@@ -46,7 +46,7 @@ func main() {
 	*/
 	// TestRoutine()
 
-	// TestChannel()
+	//TestChannel()
 
 	// TestWaitGroup()
 
@@ -60,7 +60,7 @@ func main() {
 
 	// TestTimer()
 
-	//TestTicker()
+	TestTicker()
 
 	// TestAtomic()
 	//TestAtomic2()
@@ -83,5 +83,11 @@ func main() {
 		牛客网题目：
 	*/
 	TestNewCoder1()
+	/*
+		算法：
+	*/
+	TestLRU()
+
+	TestShen()
 
 }
