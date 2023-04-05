@@ -25,7 +25,7 @@ var i int32 = 100
 // 	locki.Unlock()
 // }
 
-//方法2:atomic
+// 方法2:atomic
 func addI2() {
 	atomic.AddInt32(&i, 1)
 }
@@ -38,7 +38,7 @@ func TestAtomic() {
 	for i := 0; i < 100; i++ {
 		// go addI()
 		// go subI()
-        go addI2()
+		go addI2()
 		go subI2()
 	}
 	time.Sleep(time.Second * 2)

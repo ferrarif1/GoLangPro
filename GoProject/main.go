@@ -21,7 +21,7 @@ func main() {
 	// fmt.Printf("age: %v\n", age)
 
 	// //slice crud
-	//TestSlice()
+	TestSlice()
 
 	// //map
 	//TestMap()
@@ -60,7 +60,7 @@ func main() {
 
 	// TestTimer()
 
-	TestTicker()
+	//TestTicker()
 
 	// TestAtomic()
 	//TestAtomic2()
@@ -82,12 +82,14 @@ func main() {
 	/*
 		牛客网题目：
 	*/
-	TestNewCoder1()
+	//TestNewCoder1()
 	/*
 		算法：
 	*/
-	TestLRU()
+	//TestLRU()
 
-	TestShen()
+	//TestShen()
+
+	TestInterface2()
 
 }
