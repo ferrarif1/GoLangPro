@@ -3,15 +3,72 @@ package main
 import (
 	"GoProject/user"
 	"fmt"
+	"math/rand"
+	"strings"
 )
 
-func main() {
-	user.Hello()
-	a := 200
-	p := &a
-	fmt.Printf("p: %v\n", p)
-	TestString()
+// 使用欧几里得算法求最大公约数
+func gcd(a, b int) int {
+	if b == 0 {
+		return a
+	}
+	return gcd(b, a%b)
+}
 
+func main() {
+
+	str := "zhongGuo_ZuiMeiLiDe_DiFang_ShiNaLi?"
+	s1 := strings.Fields(str) //将会利用 1 个或多个空白符号来作为动态长度的分隔符将字符串分割成若干小块
+	fmt.Println("-------s1------------", s1)
+	for _, val := range s1 {
+		fmt.Println(val + "\n")
+	}
+	s2 := strings.Split(str, "_") //拆分字符串
+	fmt.Println("-------s2 len------------", len(s2))
+	for i := 0; i < len(s2); i++ {
+		fmt.Println(s2[i])
+	}
+	fmt.Println("-----------------")
+	for _, val := range s2 {
+		fmt.Println(val)
+	}
+	s3 := strings.Join(s2, ",") //拼接字符串
+	fmt.Println("------s3-----------", s3)
+
+	for i := 0; i < 5; i++ {
+		a := rand.Intn(10) //生成10以内的随机数
+		fmt.Println(a)
+	}
+	for i := 0; i < 5; i++ {
+		a := rand.Int() //生产随机数
+		fmt.Println(a)
+	}
+
+	user.Hello()
+	// a := 200
+	// p := &a
+	// fmt.Printf("p: %v\n", p)
+	// //TestString()
+
+	// var str string
+	// fmt.Print("请输入一段字符串：")
+	// fmt.Scan(&str)
+
+	// m := make(map[rune]int)
+	// for _, r := range str {
+	// 	m[r]++
+	// }
+
+	// var maxRune rune
+	// var maxCount int
+	// for r, count := range m {
+	// 	if count > maxCount {
+	// 		maxRune = r
+	// 		maxCount = count
+	// 	}
+	// }
+
+	//fmt.Printf("出现次数最多的字符是 %c，出现了 %d 次。\n", maxRune, maxCount)
 	//控制台输入数据
 	// var name string
 	// var age string
@@ -21,7 +78,7 @@ func main() {
 	// fmt.Printf("age: %v\n", age)
 
 	// //slice crud
-	TestSlice()
+	//TestSlice()
 
 	// //map
 	//TestMap()
@@ -90,6 +147,6 @@ func main() {
 
 	//TestShen()
 
-	TestInterface2()
+	//TestInterface2()
 
 }
