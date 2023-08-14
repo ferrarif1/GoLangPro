@@ -1,0 +1,22 @@
+Last login: Thu May  4 08:51:12 on ttys016
+(base) zhangyuanyi@MacBook-Pro ~ % /Users/zhangyuanyi/Downloads/GoLangPro/bin/brute38 --charset='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' '????-????-????-????-????' 6PnQmAyBky9ZXJyZBv9QSGRUXkKh9HfnVsZWPn4YtcwoKy5vufUgfA3Ld7
+Running brute force for BIP38-encrypted key on 16 CPUs
+Using character set: 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Encrypted key: 6PnQmAyBky9ZXJyZBv9QSGRUXkKh9HfnVsZWPn4YtcwoKy5vufUgfA3Ld7
+KeyType: ECMultKey
+Network: Bitcoin
+Pattern: ????-????-????-????-????
+Unknown chars: 20
+Password length: 24
+Total passphrase space size: 9223372036854775808
+  3938 passphrases tried (latest guess: IHOS-ABWD-R0KG-1000-0000 )                      
+
+
+
+
+
+
+
+
+
+

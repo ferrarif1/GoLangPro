@@ -37,7 +37,7 @@ type Cust struct{
 	A int
 }
 func sss(value int)  {
-	
+	fmt.Println(value)
 }
 
 func TestMutex() {

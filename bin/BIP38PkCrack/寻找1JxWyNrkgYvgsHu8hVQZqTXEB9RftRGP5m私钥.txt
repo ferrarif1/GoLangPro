@@ -1,0 +1,12 @@
+
+寻找1JxWyNrkgYvgsHu8hVQZqTXEB9RftRGP5m 的私钥
+
+私钥使用BIP38加密，加密后：6PnQmAyBky9ZXJyZBv9QSGRUXkKh9HfnVsZWPn4YtcwoKy5vufUgfA3Ld7
+密码格式：????-????-????-????-????
+在线解密工具：https://www.bitaddress.org/bitaddress.org-v3.3.0-SHA256-dec17c07685e1870960903d8f58090475b25af946fe95a734f88408cef4aa194.html
+
+使用如下命令破解：
+
+/Users/zhangyuanyi/Downloads/GoLangPro/bin/brute38 --charset='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' '????-????-????-????-????' 6PnQmAyBky9ZXJyZBv9QSGRUXkKh9HfnVsZWPn4YtcwoKy5vufUgfA3Ld7
+
+

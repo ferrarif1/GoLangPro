@@ -1,0 +1,288 @@
+<script>
+const addrbook_lab = "Address Book"
+
+var values = new Array({UNSPENT_OUTS})
+var selected_value = 0
+var selected_cnt = 0
+var total_to_pay = 0
+var cur_but = null
+
+var wallet = new Array()
+var addrbook = new Array()
+
+/*WALLET_ENTRY_JS*/
+
+function build_change_list() {
+	var virgincounter = 0
+	for (var i=0; i<wallet.length; i++) {
+		var op = document.createElement("option")
+		if (wallet[i].virgin) {
+			op.text = "* "
+		}
+		op.text += wallet[i].wallet + ": "
+		op.text += wallet[i].label
+		op.text += " - " + wallet[i].addr //.substr(0,5) + "..." + wallet[i].addr.substr(-5)
+		op.value = wallet[i].addr
+		if (wallet[i].virgin) {
+			virgincounter++
+			changeaddrsel.add(op, changeaddrsel[virgincounter])
+		} else {
+			changeaddrsel.add(op)
+		}
+	}
+}
+
+
+function recalc_inputs() {
+	selected_value = 0
+	selected_cnt = 0
+	for (var i=1; i<unspent.rows.length; i++) {
+		if (document.getElementById('txout'+i).checked) {
+			selected_value += values[i]
+			selected_cnt++
+		}
+	}
+
+	selval.innerText = (selected_value/1e8).toFixed(8)
+	selcnt.innerText = selected_cnt.toString()
+
+	paybut.disabled = (selected_cnt==0)
+
+	recalc_to_pay()
+}
+
+function recalc_to_pay() {
+	var el, v, totsend=0
+	var butdisabled = false
+
+	v = val2int(txfee.value)
+	if (isNaN(v)) {
+		txfee.classList.add('err')
+		butdisabled = true
+	} else {
+		txfee.classList.remove('err')
+		totsend = v
+	}
+	for (var idx=1; idx<outtab.rows.length-3; idx++) {
+		el = document.getElementById('out'+idx)
+		v = val2int(el.value)
+		if (isNaN(v)) {
+			el.classList.add('err')
+			butdisabled = true
+		} else {
+			el.classList.remove('err')
+			totsend += v
+		}
+	}
+	var chval = selected_value-totsend
+	changeval.value = val2str(chval)
+	if (chval<0) {
+		changeval.style.color = 'red'
+		butdisabled = true
+	} else if (chval>0) {
+		changeval.style.color = 'green'
+	} else {
+		changeval.style.color = ''
+	}
+	paybut.disabled = butdisabled
+}
+
+
+function open_address_book(idx) {
+	if (cur_but!=null) {
+		cur_but.click()
+	}
+
+	var c = outtab.rows[idx].cells[1]
+	var inadr = document.getElementById('inadr'+idx)
+	var div = document.createElement("div")
+	c.style.position="realitive"
+	div.style.position="absolute"
+
+
+	var sel = document.createElement("select")
+	sel.style.width = '100%'
+	sel.size = ADDR_LIST_SIZE
+
+	for (var i=0; i<addrbook.length; i++) {
+		var op = document.createElement("option")
+		op.text += addrbook[i].wallet + ": "
+		op.text += addrbook[i].label
+		op.text += " - " + addrbook[i].addr
+		op.value = addrbook[i].addr
+		op.selected = inadr.value==op.value
+		op["addr_label"] = addrbook[i].label
+		sel.add(op)
+	}
+
+	for (var i=0; i<wallet.length; i++) {
+		if (wallet[i].virgin) {
+			var op = document.createElement("option")
+			op.text += wallet[i].wallet + ": "
+			op.text += wallet[i].label
+			op.text += " - " + wallet[i].addr
+			op.value = wallet[i].addr
+			op.selected = inadr.value==op.value
+			op["addr_label"] = wallet[i].label
+			sel.add(op)
+		}
+	}
+
+	if (sel.options.length==0) {
+		// add all the addresses from the current wallet
+		for (var i=0; i<wallet.length; i++) {
+			var op = document.createElement("option")
+			op.text += wallet[i].wallet + ": "
+			op.text += wallet[i].label
+			op.text += " - " + wallet[i].addr
+			op.value = wallet[i].addr
+			op.selected = inadr.value==op.value
+			op["addr_label"] = wallet[i].label
+			sel.add(op)
+		}
+	}
+	div.appendChild(sel)
+	c.appendChild(div)
+
+	var but = document.getElementById("addrbook"+idx)
+	var prv_valu = but.value
+	var prv_oncl = but.onclick
+	but.value = "Close the list"
+	cur_but = but
+	but.onclick = sel.onchange = function() {
+		c.removeChild(div)
+		but.onclick = prv_oncl
+		if (sel.selectedIndex!=-1) {
+			inadr.value = sel.options[sel.selectedIndex].value
+			but.value = sel.options[sel.selectedIndex].addr_label
+		} else {
+			but.value = addrbook_lab
+		}
+		cur_but = null
+	}
+}
+
+
+function reslab(idx) {
+	var val = document.getElementById("inadr"+idx).value
+	var but = document.getElementById("addrbook"+idx)
+	for (var i=0; i<addrbook.length; i++) {
+		if (val==addrbook[i].addr) {
+			but.value = addrbook[i].label
+			return
+		}
+	}
+	for (var i=0; i<wallet.length; i++) {
+		if (val==wallet[i].addr) {
+			but.value = wallet[i].label
+			return
+		}
+	}
+	but.value = addrbook_lab
+}
+
+
+function add_new_output() {
+	var idx = outtab.rows.length-3
+	var val, c, r = outtab.insertRow(idx)
+
+	c = r.insertCell(-1)
+	c.innerHTML = 'Output #'+idx
+
+	c = r.insertCell(-1)
+	c.innerHTML = '<input id="inadr'+idx+'" name="adr'+idx+'" size="44" class="mono" onkeyup="reslab('+idx+')" onchange="reslab('+idx+')">'
+	c.innerHTML += ' <input type="button" style="width:100px;font-size:12px;padding:2px" value="'+addrbook_lab+'" id="addrbook'+idx+'" onclick="open_address_book('+idx+')">'
+
+	c = r.insertCell(-1)
+	val = document.createElement('input')
+	val.type = 'text'
+	val.size = 13
+	val.id = 'out'+idx
+	val.name = 'btc'+idx
+	val.onchange = recalc_to_pay
+	val.onkeyup = recalc_to_pay
+	val.className = 'mono r'
+	val.value = ''
+	c.appendChild(val)
+}
+
+function allchange(t) {
+	for (var i=1; i<unspent.rows.length; i++) {
+		document.getElementById('txout'+i).checked = t.checked
+	}
+	recalc_inputs()
+}
+
+function selectadr(idx) {
+	var addr = unspent.rows[idx].cells[5].innerText
+	var chkd = document.getElementById('txout'+idx).checked
+	for (var i=1; i<unspent.rows.length; i++) {
+		if (unspent.rows[i].cells[5].innerText==addr) {
+			document.getElementById('txout'+i).checked = !chkd
+		}
+	}
+	recalc_inputs()
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	build_change_list()
+	add_new_output()
+	txfee.onchange = recalc_to_pay
+	txfee.onkeyup = recalc_to_pay
+	recalc_inputs()
+})
+
+</script>
+
+<form method="post" action="payment.zip">
+<input type="hidden" name="outcnt" value="{UNSPENT_OUTS}">
+<h2>Payment details</h2>
+Selected amount: <b id="selval">0.00000000</b> BTC in <b id="selcnt">0</b> outputs.
+<table class="bord" vspace="10" id="outtab">
+<tr>
+	<th>&nbsp;
+	<th>Pay to address
+	<th>Amount BTC
+</tr>
+
+<tr>
+	<td colspan="2">
+	<table width="100%"><tr>
+	<td><a href="javascript:add_new_output()">+ another output</a>
+	<td align="right">Transaction fee:
+    </table>
+    <td><input id="txfee" name="txfee" size="13" class="mono r" value="0.0001" onchange="recalc_to_pay" onkeyup="recalc_to_pay">
+</tr>
+
+<tr title="Transaction change">
+	<td>Change
+	<td><select name="change" style="width:100%" id="changeaddrsel">
+			<option value="">The first input's address</option>
+		</select>
+	<td class="r">
+	<input type="text" class="mono" id="changeval" size="13" readonly="readonly" style="text-align:right" onclick="this.select()">
+</tr>
+
+<tr>
+	<td colspan="3" align="center">
+		<input type="submit" id="paybut" disabled="disabled" value="Download payment.zip" style="width:100%">
+	</td>
+</tr>
+</table>
+<i><b>Note:</b> all the inputs selected below will be combined within one transaction, despite of the amounts entered above.</i>
+
+<h2>Select Inputs</h2>
+Total balance: <b>{TOTAL_BTC}</b> BTC in <b>{UNSPENT_OUTS}</b> outputs.
+<table vspace="10" id="unspent">
+<tr>
+	<th width="20">#
+	<th width="40">Block
+	<th>TxID - VOut
+	<th width="80">BTC Value
+	<th colspan="3">Address
+	<th><input type="checkbox" onchange="allchange(this)">
+</tr>
+<!--UTXOROW-->
+</table>
+
+</form>
